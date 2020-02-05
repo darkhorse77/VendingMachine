@@ -30,9 +30,9 @@ namespace VendingMachine.Models
             modelBuilder.Entity<Drink>().HasData(
                 new Drink[]
                 {
-                    new Drink { Id = 1, Count = 3, Name = "Latte", Price = 35, Image = "src/app/res/latte.png" },
-                    new Drink { Id = 2, Count = 5, Name = "Espresso", Price = 20, Image = "src/app/res/espresso.png" },
-                    new Drink { Id = 3, Count = 1, Name = "Capuchino", Price = 25, Image = "src/app/res/latte.png" }
+                    new Drink { Id = 1, Count = 3, Name = "Latte", Description = "Эспрессо, молоко и молочная пенка", Price = 35, Image = "src/app/res/latte.png" },
+                    new Drink { Id = 2, Count = 5, Name = "Espresso", Description = "Классический кофе", Price = 20, Image = "src/app/res/espresso.png" },
+                    new Drink { Id = 3, Count = 1, Name = "Capuchino", Description = "Эспрессо, молоко", Price = 25, Image = "src/app/res/latte.png" }
                 });
         }
     }

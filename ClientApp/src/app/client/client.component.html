@@ -7,9 +7,9 @@
         <div class="grid">
             <div *ngFor="let drink of drinks" (click)="selectDrink(drink)" class="drink">
                 <img src="{{drink.image}}" alt="drink photo" width="100%">
-                <div class="container">
+                <div class="drink-desc">
                     <h4><b>{{drink.name}}</b></h4>
-                    <p>Espresso, milk, milk foam</p>
+                    <p>{{drink.description}}</p>
                     <i>{{drink.price}}₽</i>
                 </div>
             </div>
@@ -27,5 +27,7 @@
         </div>
     </div> 
 </div>
+<a [routerLink]="['admin', 'secrettoken']" class="nav-link">admin panel</a>
+<a [routerLink]="['admin', 'failtoken']" class="nav-link">admin panel but token wrong</a>
 
 

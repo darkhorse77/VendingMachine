@@ -6,7 +6,7 @@ import { Drink } from '../drink';
 @Component({
     selector: 'client-app',
     templateUrl: './client.component.html',
-    styleUrls: ['./client.component.css'],
+    styleUrls: ['../app.component.css'],
     providers: [DataService]
 })
 export class ClientComponent implements OnInit {

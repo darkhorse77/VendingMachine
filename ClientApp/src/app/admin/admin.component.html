@@ -1,0 +1,16 @@
+<a [routerLink]="['']" class="nav-link">назад</a>
+    <h2>В разработке...</h2>
+<div *ngIf="access">
+    <div>
+        <span *ngFor="let coin of coins">
+            {{coin.value}} Кол-во: <input type="text" value="{{coin.count}}">, принимать к оплате <input type="checkbox" [checked]="coin.isActive"> <br>
+        </span>
+        <button class="btn btn-success" (click)="save()">Сохранить</button>
+    </div>
+    <div>
+
+    </div>
+</div>
+<div *ngIf="!access">
+    <samp><h5>access denied</h5></samp>
+</div>

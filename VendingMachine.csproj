@@ -26,8 +26,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="wwwroot\img\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="wwwroot\img\**" />
+    <EmbeddedResource Remove="wwwroot\img\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="wwwroot\img\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -38,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\img\latte.png" />
+    <Content Include="ClientApp\index.html" />
   </ItemGroup>
 
   <ItemGroup>
