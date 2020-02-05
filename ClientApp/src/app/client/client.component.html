@@ -1,0 +1,31 @@
+<div class="wrapper">
+    <div class="drinks-wrap">
+        <div class="status-bar">
+            <samp>Депозит: {{balance}}₽ </samp> <br>    
+            <samp>{{status}}</samp>
+        </div>
+        <div class="grid">
+            <div *ngFor="let drink of drinks" (click)="selectDrink(drink)" class="drink">
+                <img src="{{drink.image}}" alt="drink photo" width="100%">
+                <div class="container">
+                    <h4><b>{{drink.name}}</b></h4>
+                    <p>Espresso, milk, milk foam</p>
+                    <i>{{drink.price}}₽</i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-wrap">
+        <div class="coins-wrap">
+            <button *ngFor="let coin of coins" class="custom-btn btn btn-primary" (click)="addCoin(coin.value)" [disabled]="!coin.isActive"><b>{{coin.value}}</b></button>
+        </div>
+
+        <div class="manage">
+            <div class="custom-btn btn btn-success" (click)="accept()">Accept</div>
+            <div class="custom-btn btn btn-danger" (click)="cancel()">Cancel</div>
+        </div>
+    </div> 
+</div>
+
+

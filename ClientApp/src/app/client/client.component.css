@@ -1,0 +1,70 @@
+html {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    width: 1024px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.custom-btn {
+    display: block;
+    width: 140px;
+    margin: 5px;
+}
+
+.status-bar {
+    text-align: center;
+    margin: 10px;
+}
+
+/* Блок напитков */
+
+.drinks-wrap {
+    display: inline-block;
+    width: 480px;
+}
+
+.drinks-wrap .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-gap: 15px;
+}
+
+.drink {
+    display: inline-block;  
+    width: 140px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.drink img {
+    height: 122px;
+}
+
+
+.drink:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+.drink .container {
+    padding: 2px 16px;
+}
+
+/* Блок монет */
+
+.right-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.coins-wrap {
+    display: inline-block;
+}
+
