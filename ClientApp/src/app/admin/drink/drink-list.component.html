@@ -1,0 +1,27 @@
+<caption>Напитки:</caption>
+<a routerLink="../drinks/add" class="nav-link">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Состав</td>
+            <td>Цена</td>
+            <td>Количество</td>
+            <td>Фото</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of drinks">
+            <td>{{d?.name}}</td>
+            <td>{{d?.description}}</td>
+            <td>{{d?.price}}</td>
+            <td>{{d?.count}}</td>
+            <td>{{d?.image}}</td>
+            <td>
+                <a [routerLink]="['../drinks/edit', d.id]" class="btn btn-sm btn-primary">Изменить</a>
+                <button (click)="delete(d.id)" class="btn btn-sm btn-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

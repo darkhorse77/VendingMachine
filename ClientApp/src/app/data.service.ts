@@ -15,7 +15,7 @@ export class DataService {
     }
 
     updateCoin(coin: Coin) {
-        return this.http.put(this.url = 'coins', coin);
+        return this.http.put(this.url + 'coins', coin);
     }
 
     getDrinks() {

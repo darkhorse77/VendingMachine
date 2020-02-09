@@ -18,7 +18,7 @@
 
     <div class="right-wrap">
         <div class="coins-wrap">
-            <button *ngFor="let coin of coins" class="custom-btn btn btn-primary" (click)="addCoin(coin.value)" [disabled]="!coin.isActive"><b>{{coin.value}}</b></button>
+            <button *ngFor="let coin of coins" class="custom-btn btn btn-primary" (click)="addCoin(coin)" [disabled]="!coin.isActive"><b>{{coin.value}}</b></button>
         </div>
 
         <div class="manage">
@@ -28,6 +28,5 @@
     </div> 
 </div>
 <a [routerLink]="['admin', 'secrettoken']" class="nav-link">admin panel</a>
-<a [routerLink]="['admin', 'failtoken']" class="nav-link">admin panel but token wrong</a>
 
 

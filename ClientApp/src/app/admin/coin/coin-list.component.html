@@ -1,0 +1,21 @@
+<caption>Монеты:</caption>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Номинал</td>
+            <td>Количество</td>
+            <td>Приём</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of coins">
+            <td>{{c.value}}</td>
+            <td>{{c.count}}</td>
+            <td><input type="checkbox" [checked]="c.isActive" disabled></td>
+            <td>
+                <a [routerLink]="['../coins/edit', c.id]" class="btn btn-sm btn-primary">Изменить</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -14,6 +14,7 @@ export class ClientComponent implements OnInit {
     drinks: Drink[];
     status: string;
     balance: number = 0;
+    depositСoins: number[] = []; // внесённые пользователем номиналы монет
     drink: Drink; // изменяемый товар
 
     constructor(private dataService: DataService) { }
@@ -24,13 +25,19 @@ export class ClientComponent implements OnInit {
         this.dataService.getDrinks().subscribe((data: Drink[]) => this.drinks = data);
     } 
     
-    addCoin(value: number): void {
-        this.balance += value;
-        this.status = "+ " + this.balance + "₽";
+    addCoin(coin: Coin): void {
+        if(coin.isActive) {
+            this.balance += coin.value;
+            this.depositСoins.push(coin.value);
+            this.status = "+ " + this.balance + "₽";
+        }
+        else {
+            alert('Монета не принимается!'); // доп. проверка на случай если стили не загрузятся и кнопка будет доступна для клика
+        }
     }
 
     selectDrink(drink: Drink): void {
-        if(this.balance < drink.price)
+        if(this.balance < drink.price || this.balance == NaN)
         {
             this.status = "Недостаточно средств для покупки " + drink.name;
             return;
@@ -45,22 +52,33 @@ export class ClientComponent implements OnInit {
     }
 
     accept(): void {
-        if(this.drink == null && this.drink == undefined)
+        if(this.drink == null || this.drink == undefined)
         {
             this.status = "Выберите напиток!";
             return;
         }
+
         this.drink.count -= 1;
-        this.dataService.updateDrink(this.drink).subscribe(data => this.drinks);
+        this.dataService.updateDrink(this.drink).subscribe(data => this.drinks);     
+    
+        this.dataService.getCoins().subscribe((data: Coin[]) => this.coins = data); // обновление состояния монет перед отправкой на сервер
+        this.coins.forEach(coin => {     
+            coin.count += this.depositСoins.filter(x => x == coin.value).length;
+            this.dataService.updateCoin(coin).subscribe(data => this.coins);
+        });   
+
         this.status = "Напиток готов. Сдача " + (this.balance - this.drink.price) + "₽";
         (new Audio("/src/app/res/sound.wav")).play();
+
         this.balance = 0;
+        this.depositСoins = [];
         this.drink = null;
     }
 
     cancel(): void {
-        this.status = "Операция отменена. Сдача " + this.balance + "₽";
+        this.status = "Операция отменена. Сдача не выдётся" /*+ this.balance + "₽"*/;
         this.balance = 0;
+        this.depositСoins = [];
         this.drink = null;  
     }
 }

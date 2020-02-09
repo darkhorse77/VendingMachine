@@ -41,7 +41,7 @@ namespace VendingMachine.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             Drink drink = db.Drinks.Where(x => x.Id == id).FirstOrDefault();
