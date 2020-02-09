@@ -24,7 +24,6 @@ namespace WebApplication3
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", corsBuilder =>
@@ -34,6 +33,7 @@ namespace WebApplication3
                     .AllowAnyOrigin();
                 });
             });
+            services.AddMvc(option => option.EnableEndpointRouting = false);        
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -70,7 +70,7 @@ namespace WebApplication3
             //        name: "default",
             //        pattern: "{controller}/{action=Index}/{id?}");
             //});
-
+            app.UseCors("CorsPolicy");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -79,7 +79,7 @@ namespace WebApplication3
                 routes.MapSpaFallbackRoute("angular-fallback",
                     new { controller = "Home", action = "Index" });
             });
-            app.UseCors("CorsPolicy");
+            
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,

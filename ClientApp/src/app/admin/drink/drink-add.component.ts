@@ -13,4 +13,5 @@ export class DrinkAddComponent {
     save() {
         this.dataService.addDrink(this.drink).subscribe(data => this.router.navigateByUrl("/"));
     }
+
 }

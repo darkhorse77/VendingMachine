@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Coin } from '../coin';
 import { Drink } from '../drink';
+import { compileInjectable } from '@angular/compiler';
      
 @Component({
     selector: 'client-app',
@@ -57,15 +58,28 @@ export class ClientComponent implements OnInit {
             this.status = "Выберите напиток!";
             return;
         }
-
         this.drink.count -= 1;
         this.dataService.updateDrink(this.drink).subscribe(data => this.drinks);     
-    
-        this.dataService.getCoins().subscribe((data: Coin[]) => this.coins = data); // обновление состояния монет перед отправкой на сервер
+
         this.coins.forEach(coin => {     
             coin.count += this.depositСoins.filter(x => x == coin.value).length;
-            this.dataService.updateCoin(coin).subscribe(data => this.coins);
+            this.dataService.updateCoin(coin).subscribe(data => this.coins); 
         });   
+
+        let change = this.balance - this.drink.price;
+        while(change > 0) {
+            for(let coin of this.coins.filter(x => x.count > 0).sort((a, b) => b.value - a.value)) {
+                if(change % coin.value == 0)
+                {
+                    coin.count -= 1;
+                    change -= coin.value;
+                    break;
+                }
+            }
+        }
+        this.coins.forEach(coin => {
+            this.dataService.updateCoin(coin).subscribe(data => this.coins);    
+        });
 
         this.status = "Напиток готов. Сдача " + (this.balance - this.drink.price) + "₽";
         (new Audio("/src/app/res/sound.wav")).play();
@@ -76,7 +90,7 @@ export class ClientComponent implements OnInit {
     }
 
     cancel(): void {
-        this.status = "Операция отменена. Сдача не выдётся" /*+ this.balance + "₽"*/;
+        this.status = "Операция отменена. Сдача "+ this.balance + "₽";
         this.balance = 0;
         this.depositСoins = [];
         this.drink = null;  

@@ -17,7 +17,10 @@
             <td>{{d?.description}}</td>
             <td>{{d?.price}}</td>
             <td>{{d?.count}}</td>
-            <td>{{d?.image}}</td>
+            <td>
+                <span>Изображение:</span>
+                <input #imageInput type="file"accept="image/*" (change)="sendImage(imageInput, d)">
+            </td>
             <td>
                 <a [routerLink]="['../drinks/edit', d.id]" class="btn btn-sm btn-primary">Изменить</a>
                 <button (click)="delete(d.id)" class="btn btn-sm btn-danger">Удалить</button>
