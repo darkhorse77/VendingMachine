@@ -1,0 +1,33 @@
+<caption>Напитки:</caption>
+<div>
+    <a routerLink="../drinks/add" class="btn btn-success btn-sm" style="margin: 5px 10px;">Добавить</a>
+    <button class="btn btn-primary btn-sm" (click)="exportDrinks()">Экспорт напитков</button>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Состав</td>
+            <td>Цена</td>
+            <td>Количество</td>
+            <td>Фото</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of drinks">
+            <td>{{d?.name}}</td>
+            <td>{{d?.description}}</td>
+            <td>{{d?.price}}</td>
+            <td>{{d?.count}}</td>
+            <td>
+                <img src="{{'src/app/res/' + d.image}}" alt="{{d.name}}" width="100px">
+                <input #file type="file" (change)="sendImage(file.files, d)" />
+            </td>
+            <td>
+                <a [routerLink]="['../drinks/edit', d.id]" class="btn btn-sm btn-primary">Изменить</a>
+                <button (click)="delete(d.id)" class="btn btn-sm btn-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
