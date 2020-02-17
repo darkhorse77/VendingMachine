@@ -10,9 +10,12 @@ namespace WebApplication3
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private string _rootPath;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _rootPath = env.ContentRootPath;
         }
 
         public IConfiguration Configuration { get; }
@@ -20,8 +23,11 @@ namespace WebApplication3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string conn = Configuration.GetConnectionString("DefaultConnection");
+            if (conn.Contains("%CONTENTROOTPATH%"))
+                conn = conn.Replace("%CONTENTROOTPATH%", _rootPath);
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(conn));
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", corsBuilder =>
